@@ -26,10 +26,10 @@ jobs:
     steps:
     # VN at 16 March 2023: checkout/v3 causes some weird issues, so went for manual cloning instead...
     #- uses: actions/checkout@v3
-    - uses: actions/checkout@v2
+    #- uses: actions/checkout@v2
     - uses: actions/setup-python@v2
     - name: clone repo
-      run: git clone https://github.com/dtcc-platform/${{ matrix.repo }} -b $BRANCH && pwd
+      run: git clone https://github.com/dtcc-platform/dtcc-${{ matrix.repo }} -b $BRANCH && pwd
     - name: pip install MacOS/Ubuntu
       run: ls -alt && export PATH="$pythonLocation:$PATH" && python --version && export "DEB_PYTHON_INSTALL_LAYOUT=deb_system" && pip install ${{ matrix.repo }}/
       if: matrix.os != 'windows-latest'
