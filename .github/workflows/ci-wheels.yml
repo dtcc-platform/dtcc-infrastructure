@@ -31,7 +31,7 @@ jobs:
     - name: clone repo
       run: git clone https://github.com/dtcc-platform/dtcc-${{ matrix.repo }} -b $BRANCH && pwd
     - name: pip install MacOS/Ubuntu
-      run: ls -alt && export PATH="$pythonLocation:$PATH" && python --version && export "DEB_PYTHON_INSTALL_LAYOUT=deb_system" && pip install ${{ matrix.repo }}/
+      run: ls -alt && export PATH="$pythonLocation:$PATH" && python --version && export "DEB_PYTHON_INSTALL_LAYOUT=deb_system" && cd dtcc-${{ matrix.repo }}/ && pip install .
       if: matrix.os != 'windows-latest'
     #- name: build wheel MacOS/Ubuntu
     #  run:  ls -alt && export PATH="$pythonLocation:$PATH" && python --version && export "DEB_PYTHON_INSTALL_LAYOUT=deb_system" && pip install . && pip install build && python -m build
