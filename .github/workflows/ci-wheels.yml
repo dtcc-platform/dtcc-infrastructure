@@ -41,7 +41,7 @@ jobs:
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         repository-url: https://test.pypi.org/legacy/
-        packages-dir: dtcc-${{ matrix.repo }}/
+        packages-dir: dtcc-${{ matrix.repo }}/dist/
         password: ${{ secrets.TEST_PYPI_API_TOKEN }}
     #- name: build wheel MacOS/Ubuntu
     #  run:  ls -alt && export PATH="$pythonLocation:$PATH" && python --version && export "DEB_PYTHON_INSTALL_LAYOUT=deb_system" && pip install . && pip install build && python -m build
