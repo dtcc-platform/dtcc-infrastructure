@@ -14,7 +14,7 @@ jobs:
     strategy:
       matrix: 
         os: [ubuntu-latest]#, windows-latest, macos-latest]
-        repo: [model]
+        repo: [model,common]
         python-version: ["3.10"]
     runs-on: ${{ matrix.os }}
     # Placeholder for Docker on our Amazon AWS Runner
