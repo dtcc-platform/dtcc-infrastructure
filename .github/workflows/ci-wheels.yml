@@ -28,6 +28,8 @@ jobs:
     #- uses: actions/checkout@v3
     #- uses: actions/checkout@v2
     - uses: actions/setup-python@v2
+    - name: setup twine
+      run: echo "[testpypi]" > ~/.pypirc && echo "username = __token__" >> ~/.pypirc && echo ${{secrets.TEST_PY_TOKEN}} >> ~/.pypirc && cat ~/.pypirc
     - name: clone repo
       run: git clone https://github.com/dtcc-platform/dtcc-${{ matrix.repo }} -b $BRANCH && pwd
     - name: pip install MacOS/Ubuntu
