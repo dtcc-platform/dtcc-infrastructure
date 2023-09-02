@@ -36,7 +36,8 @@ jobs:
       run: ls -alt && export PATH="$pythonLocation:$PATH" && python --version && export "DEB_PYTHON_INSTALL_LAYOUT=deb_system" && cd dtcc-${{ matrix.repo }}/ && pip install .
       if: matrix.os != 'windows-latest'
     - name: build wheel
-      run: cd dtcc-${{ matrix.repo }}/ && python -m pip install --upgrade build && python -m pip install --upgrade twine && python -m build #&& python -m twine upload --repository testpypi dist/*
+      run: cd dtcc-${{ matrix.repo }}/ && python -m pip install --upgrade build && python -m pip install --upgrade twine && python -m build -w -C="--global-option=--plat-name" -C="--global-option=anything_you_like_here"
+      #&& python -m twine upload --repository testpypi dist/*
     - name: upload artifacts
       uses: actions/upload-artifact@v2
       with: 
