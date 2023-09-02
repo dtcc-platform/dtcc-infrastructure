@@ -13,8 +13,8 @@ jobs:
   build:
     strategy:
       matrix: 
-        os: [ubuntu-latest, macos-latest]
-        repo: [model,common, io]
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        repo: [model,common,io,wrangler]
         python-version: ["3.10"]
     runs-on: ${{ matrix.os }}
     # Placeholder for Docker on our Amazon AWS Runner
