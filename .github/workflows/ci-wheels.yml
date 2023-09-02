@@ -31,7 +31,7 @@ jobs:
     #- name: setup twine
     #  run: echo "[testpypi]" > ~/.pypirc && echo "username = __token__" >> ~/.pypirc && echo "password = ${{secrets.TEST_PYPI_API_TOKEN}} " >> ~/.pypirc && cat ~/.pypirc
     - name: clone repo
-      run: git clone https://github.com/dtcc-platform/dtcc-${{ matrix.repo }} -b ${BRANCH} && pwd
+      run: git clone https://github.com/dtcc-platform/dtcc-${{ matrix.repo }} -b develop && pwd
     - name: pip install MacOS/Ubuntu
       run: ls -alt && export PATH="$pythonLocation:$PATH" && python --version && export "DEB_PYTHON_INSTALL_LAYOUT=deb_system" && cd dtcc-${{ matrix.repo }}/ && pip install .
       if: matrix.os != 'windows-latest'
