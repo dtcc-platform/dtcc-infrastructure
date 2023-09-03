@@ -14,7 +14,7 @@ jobs:
     strategy:
       matrix: 
         os: [ubuntu-latest, macos-latest, windows-latest]
-        repo: [model,common,io,wrangler]
+        repo: [builder]
         python-version: ["3.10"]
     runs-on: ${{ matrix.os }}
     # Placeholder for Docker on our Amazon AWS Runner
@@ -36,7 +36,7 @@ jobs:
       run: ls -alt && export PATH="$pythonLocation:$PATH" && python --version && export "DEB_PYTHON_INSTALL_LAYOUT=deb_system" && cd dtcc-${{ matrix.repo }}/ && pip install .
       if: matrix.os != 'windows-latest'
     - name: build wheel
-      run: cd dtcc-${{ matrix.repo }}/ && python -m pip install --upgrade build && python -m pip install --upgrade twine && python -m build -w -C="--build-option=--plat-name" -C="--build-option=anything_you_like_here"
+      run: cd dtcc-${{ matrix.repo }}/ && python -m pip install --upgrade build && python -m pip install --upgrade twine && python -m build 
       #&& python -m twine upload --repository testpypi dist/*
     - name: upload artifacts
       uses: actions/upload-artifact@v2
