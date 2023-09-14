@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
        matrix:
-         repo: ['builder', 'io']
+         repo: ['builder', 'io', 'model', 'wrangler', 'data', 'viewer', 'common']
     steps:
 
     - name: Checkout dtcc-platform repos to a separate directory
@@ -17,7 +17,7 @@ jobs:
         path: dtcc-${{ matrix.repo }}
         ref: develop
 
-    - name: Merge changes from dtcc-builder into dtcc
+    - name: Check that everything is ok!
       run: |
         pwd 
         ls -alt
