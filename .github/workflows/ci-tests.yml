@@ -5,14 +5,16 @@ on: [push] # Define when you want this action to run. This is just an example.
 jobs:
   checkout_and_pull:
     runs-on: ubuntu-latest
-
+    strategy:
+       matrix:
+         repo: ['dtcc-builder', 'dtcc-io']
     steps:
 
-    - name: Checkout dtcc-platform/dtcc-builder to a separate directory
+    - name: Checkout dtcc-platform repos to a separate directory
       uses: actions/checkout@v3
       with:
-        repository: dtcc-platform/dtcc-builder
-        path: dtcc-builder
+        repository: dtcc-platform/${{ matrix.repo }}
+        path: ${{ matrix.repo }}
 
     - name: Merge changes from dtcc-builder into dtcc
       run: |
