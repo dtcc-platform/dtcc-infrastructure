@@ -1,0 +1,23 @@
+name: ci-tests
+
+on: [push] # Define when you want this action to run. This is just an example.
+
+jobs:
+  checkout_and_pull:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout dtcc-platform/dtcc-builder to a separate directory
+      uses: actions/checkout@v3
+      with:
+        repository: dtcc-platform/dtcc-builder
+        path: dtcc-builder
+
+    - name: Merge changes from dtcc-builder into dtcc
+      run: |
+        pwd 
+        ls -alt
+        #cp -R dtcc-builder/* . # This copies all files from dtcc-builder to the current directory (dtcc)
+        #git add .
+        #git commit -m "Merged changes from dtcc-builder
