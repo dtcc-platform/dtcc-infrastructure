@@ -7,21 +7,21 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
        matrix:
-         repo: ['dtcc-builder', 'dtcc-io']
+         repo: ['builder', 'io']
     steps:
 
     - name: Checkout dtcc-platform repos to a separate directory
       uses: actions/checkout@v3
       with:
-        repository: dtcc-platform/${{ matrix.repo }}
-        path: ${{ matrix.repo }}
+        repository: dtcc-platform/dtcc-${{ matrix.repo }}
+        path: dtcc-${{ matrix.repo }}
         ref: develop
 
     - name: Merge changes from dtcc-builder into dtcc
       run: |
         pwd 
         ls -alt
-        cd dtcc-builder
+        cd dtcc-${{ matrix.repo }}
         git status
         #cp -R dtcc-builder/* . # This copies all files from dtcc-builder to the current directory (dtcc)
         #git add .
