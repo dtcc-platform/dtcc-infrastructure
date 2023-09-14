@@ -15,11 +15,14 @@ jobs:
       with:
         repository: dtcc-platform/${{ matrix.repo }}
         path: ${{ matrix.repo }}
+        ref: develop
 
     - name: Merge changes from dtcc-builder into dtcc
       run: |
         pwd 
         ls -alt
+        cd dtcc-builder
+        git status
         #cp -R dtcc-builder/* . # This copies all files from dtcc-builder to the current directory (dtcc)
         #git add .
         #git commit -m "Merged changes from dtcc-builder
