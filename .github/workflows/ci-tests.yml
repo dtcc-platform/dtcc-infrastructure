@@ -23,6 +23,7 @@ jobs:
         ls -alt
         cd dtcc-${{ matrix.repo }}
         git status
+        git log
         #cp -R dtcc-builder/* . # This copies all files from dtcc-builder to the current directory (dtcc)
         #git add .
         #git commit -m "Merged changes from dtcc-builder
