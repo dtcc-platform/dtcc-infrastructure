@@ -18,6 +18,10 @@ jobs:
         path: dtcc-${{ matrix.repo }}
         ref: develop
 
+    - name: Step for the usual Ubuntu thing
+    - if: ${{ matrix.os }}=='ubuntu-latest'
+      run: export DEB_PYTHON_INSTALL_LAYOUT=deb_system
+      
     - name: Check that everything is ok!
       run: |
         pip install dtcc-${{ matrix.repo }}/
