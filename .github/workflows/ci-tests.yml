@@ -20,6 +20,7 @@ jobs:
 
     - name: Check that everything is ok!
       run: |
+        pip install dtcc-${{ matrix.repo }}/
         pwd 
         ls -alt
         cd dtcc-${{ matrix.repo }}
