@@ -67,6 +67,29 @@ def get_publications_by_author_and_year(api_key, author_id, year=None, max_resul
 api_key = input("Please enter your Scopus API key: ")
 
 author_id = '55105387900' #J. Gil as an example
+#0000-0002-1547-4773 Anders Logg
+#0000-0002-3485-9329 Vasilis Naserentin
+#0000-0002-5401-5721 Minna Kastrunen
+#0000-0001-8493-9231 Beata Wastberg, 
+#0000-0002-9031-4323 Liane Thuvander, 
+#0000-0002-1674-6785 Leonardo Rosado, 
+# 0000-0002-9756-2362 Alexander Hollberg, 
+# 0000-0002-4551-8861 Lars Marcus, 
+# 0000-0002-4000-9064 Meta B. Pont,  
+# 0000-0002-0067-1985 Monica Billger, 
+#0000-0003-2375-1328 Franziska Hunger , 
+#0000-0001-8561-1588 Sanjay Somanath, 
+# 0000-0003-4330-6133 Alex G. , 
+# 0000-0001-8713-0083 Malgorzata Zboinska
+# 0000-0002-3706-8485 Mattias Ruppe, 
+# Graham Kemp, 
+# 0000-0002-8630-8262 Dag Wastberg, 
+# all the GATE people,
+#0000-0001-6552-4276 Jonas Runberger, 
+# 0000-0001-7723-2801 Mikael Johansson, 
+# Amar, University of Salento, 
+# 0000-0003-3252-1495 Lars Harrie
+
 year = 2022  # Optional
 max_results = 50  # Example: increase if you need more
 publications = get_publications_by_author_and_year(api_key, author_id, year, max_results)
