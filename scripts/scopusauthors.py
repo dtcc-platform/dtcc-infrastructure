@@ -128,11 +128,12 @@ author_id = '55105387900' #J. Gil as an example
 #                     7101892857  Graham Kemp
 # University of Salento,
 # Amro, Antonella, who else? 
-# all the GATE people,
-#Dessi
-#Mariya
-#Radostin
 
+#57939562600 Radostin Mitkov
+#35932460300 Dessislava Petrova
+#57219490991 Mariya Pantusheva
+#57193733342 Peter Hristov
+#57467223200 Evgeny Shirinyan
 
 data = {
     "ORCID": [
