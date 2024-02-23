@@ -185,7 +185,7 @@ api_key = input("Please enter your Scopus API key: ")
 # GATE
 #57939562600 Radostin Mitkov
 #35932460300 Dessislava Petrova
-#57219490991 Mariya Pantusheva
+#0000-0002-0875-2886 57219490991 Mariya Pantusheva
 #57193733342 Peter Hristov
 #57467223200 Evgeny Shirinyan
 
