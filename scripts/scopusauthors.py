@@ -4,12 +4,47 @@
 
 # Bibliometric fetching utilities for Scopus and Google Scholar -
 # Regarding Google Scholar check https://stackoverflow.com/questions/62938110/does-google-scholar-have-an-api-available-that-we-can-use-in-our-research-applic
-
+# Using crossref to get authors from DOI, since Elsevier was giving me trouble...
 
 import requests, pandas as pd
 import time
 
+def getauthorsby(doi):
+    """
+    Fetches a list of authors for a given DOI from the Crossref API.
 
+    Parameters:
+    doi (str): The Digital Object Identifier (DOI) of the paper.
+
+    Returns:
+    list: A list of author names (given and family names combined).
+    """
+    # Construct the URL with the given DOI
+    url = f"https://api.crossref.org/works/{doi}"
+    try:
+        # Send a GET request to the Crossref API
+        response = requests.get(url)
+        data = response.json()
+
+        # Initialize an empty list to hold author names
+        author_names = []
+
+        # Extracting authors if available
+        if 'message' in data and 'author' in data['message']:
+            authors = data['message']['author']
+            for author in authors:
+                # Combine given and family names
+                given = author.get('given', '')
+                family = author.get('family', '')
+                full_name = f"{given} {family}".strip()
+                author_names.append(full_name)
+                
+        # Return the list of author names
+        return author_names
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return []
 
 #The function fetch_scopus_id_from_orcid is not working at the moment, due to the Elsevier API.
 def fetch_scopus_id_from_orcid(orcid, api_key):
@@ -92,8 +127,14 @@ def get_publications_by_author_and_year(api_key, author_id, year=None, max_resul
             
             for item in data.get('search-results', {}).get('entry', []):
                 title = item.get('dc:title', 'No title available')
+                if title != 'No title available':
+                    #doi = data['abstracts-retrieval-response']['coredata'].get('prism:doi', 'DOI not found')
+                    doi = item.get('prism:doi', 'No DOI available')
+                else:
+                    doi = 'No DOI available' 
                 journal_name = item.get('prism:publicationName', 'No journal name available')
-                publications.append((title, journal_name))
+                #print(item)
+                publications.append((title, journal_name,doi))
 
             start += count  # Increment 'start' to fetch the next page of results
 
@@ -111,7 +152,6 @@ def get_publications_by_author_and_year(api_key, author_id, year=None, max_resul
 
 # Prompt the user for the Scopus API key
 api_key = input("Please enter your Scopus API key: ")
-api_key = '15dc1f98cfe0f0dd91f339dd2320ab97'
 # Data for ORCIDs and names
 
 # 0000-0002-1547-4773 13411014700 Anders Logg
@@ -196,7 +236,7 @@ print(df)
 df.to_csv("orcid_scopus_names.csv", index=False)
 
 
-year = 2024   # Optional
+year = 2023   # Optional
 max_results = 50  # Example: increase if you need more
 
 #for element in df['Scopus ID']:
@@ -213,13 +253,21 @@ for index, row in df.iterrows():
     print("-----\n")
     publications = get_publications_by_author_and_year(api_key, scopusid, year, max_results)
     #print(publications)
-    for i, (title, journal_name) in enumerate(publications, start=1):
-       print(f"{i}. {title} - {journal_name}")
+    
+    for i, (title, journal_name,doi) in enumerate(publications, start=1):
+       if title=='No title available':
+            print('No publications for '+str(year))
+            break
+       print(f"{i}. {title} \n{journal_name} \n{doi}")
+       if doi != 'No DOI available':
+           authors = getauthorsby(doi)
+           if authors:
+               for author in authors:
+                   print(f"Author: {author}")
+           else:
+               print("No author information found for this DOI.")
     # Adding a small timeout to not get blocked by the API
     time.sleep(1)
     print('\n')
 
-
-##for i, (title, journal_name) in enumerate(publications, start=1):
-#    print(f"{i}. {title} - {journal_name}")
 
