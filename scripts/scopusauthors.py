@@ -237,7 +237,7 @@ print(df)
 #df.to_csv("orcid_scopus_names.csv", index=False)
 
 
-year = 2023   # Optional
+year = 2024   # Optional
 max_results = 50  # Example: increase if you need more
 
 #for element in df['Scopus ID']:
@@ -296,7 +296,7 @@ for i in range(len(excelA)):
     sheet[f'F{i+1}'].value = excelF[i-1]
     sheet[f'H{i+1}'].value = excelH[i-1]
 
-wb.save('example.xlsx')
+wb.save('example'+str(year)+'.xlsx')
 wb.close()
 # trying to do unique
 
@@ -315,6 +315,6 @@ for i in range(len(uniqexcelA)):
     sheet[f'C{i+1}'].value = excelC[uniqlist[i]-1]
     sheet[f'F{i+1}'].value = excelF[uniqlist[i]-1]
     sheet[f'H{i+1}'].value = excelH[uniqlist[i]-1]
-wbc.save('exampleuniq.xlsx')
+wbc.save('exampleuniq'+str(year)+'.xlsx')
 
 wbc.close()
