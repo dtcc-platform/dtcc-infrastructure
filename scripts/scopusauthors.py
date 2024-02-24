@@ -8,6 +8,7 @@
 
 import requests, pandas as pd
 import time
+import openpyxl
 
 def getauthorsby(doi):
     """
@@ -233,7 +234,7 @@ df = pd.DataFrame(data, columns=["ORCID", "Scopus ID", "Name"])
 print(df)
 
 # Optionally, you might want to save this DataFrame to a CSV file for future use
-df.to_csv("orcid_scopus_names.csv", index=False)
+#df.to_csv("orcid_scopus_names.csv", index=False)
 
 
 year = 2023   # Optional
@@ -245,6 +246,12 @@ max_results = 50  # Example: increase if you need more
     #for i, (title, journal_name) in enumerate(publications, start=1):
     #    print(f"{i}. {title} - {journal_name}")
 
+wb = openpyxl.Workbook()
+sheet = wb.active
+excelA=[]
+excelC=[]
+excelF=[]
+excelH=[]
 for index, row in df.iterrows():
     orcid = row.iloc[0]  
     scopusid = row.iloc[1]  
@@ -259,15 +266,55 @@ for index, row in df.iterrows():
             print('No publications for '+str(year))
             break
        print(f"{i}. {title} \n{journal_name} \n{doi}")
+       excelA.append(title)
+       excelC.append(doi)
+       excelH.append(journal_name)
        if doi != 'No DOI available':
            authors = getauthorsby(doi)
            if authors:
-               for author in authors:
-                   print(f"Author: {author}")
+                print(', '.join(authors))
+                excelF.append(', '.join(authors))
            else:
                print("No author information found for this DOI.")
+               excelF.append(name+" No extra authors due to the DOI author API not working.")
+       else:
+            print("No DOI available.")
+            excelF.append(name+" No extra authors due to no DOI available.")
     # Adding a small timeout to not get blocked by the API
-    time.sleep(1)
+    #time.sleep(1)
     print('\n')
+print(excelA)
+print(excelC)
+print(excelF)
+print(len(excelA))
+print(len(excelC))
+print(len(excelF))
+print(len(excelH))
+for i in range(len(excelA)):
+    sheet[f'A{i+1}'].value = excelA[i-1]
+    sheet[f'C{i+1}'].value = excelC[i-1]
+    sheet[f'F{i+1}'].value = excelF[i-1]
+    sheet[f'H{i+1}'].value = excelH[i-1]
+
+wb.save('example.xlsx')
+wb.close()
+# trying to do unique
 
 
+uniqexcelA = []
+uniqlist=[]
+for item in excelA:
+    if item not in uniqexcelA:
+        uniqexcelA.append(item)
+        uniqlist.append(excelA.index(item))
+
+wbc = openpyxl.Workbook()
+sheet = wbc.active
+for i in range(len(uniqexcelA)):
+    sheet[f'A{i+1}'].value = uniqexcelA[i-1]
+    sheet[f'C{i+1}'].value = excelC[uniqlist[i]-1]
+    sheet[f'F{i+1}'].value = excelF[uniqlist[i]-1]
+    sheet[f'H{i+1}'].value = excelH[uniqlist[i]-1]
+wbc.save('exampleuniq.xlsx')
+
+wbc.close()
