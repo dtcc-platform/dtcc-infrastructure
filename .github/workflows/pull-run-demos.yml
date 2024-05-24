@@ -29,6 +29,7 @@ jobs:
                 pip install pyassimp PyOpenGL PyOpenGL_accelerate
                 dtcc-download-demo-data
                 #python demos/CI/comment_out.py
+                ls -altR
                 cd venv/lib/python3.10/site-packages
                 ls -altR
                 for script in demos/*.py; do
@@ -45,6 +46,7 @@ jobs:
                 python -m venv venv
                 source venv/bin/activate  # Linux/macOS
                 pip install dtcc
+                ls -altR
                 #pip install pyassimp PyOpenGL PyOpenGL_accelerate
                 cd venv/lib/python3.10/site-packages
                 ls -altR
