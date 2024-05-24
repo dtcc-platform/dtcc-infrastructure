@@ -22,11 +22,15 @@ jobs:
         - name: Ubuntu demo running
           if: matrix.os == 'ubuntu-latest'
           run:  |
+                #sudo apt-get install libassimp-dev python3-opengl
+                python -m venv venv
+                source venv/bin/activate  # Linux/macOS
                 pip install dtcc
                 pip install pyassimp PyOpenGL PyOpenGL_accelerate
-                sudo apt-get install libassimp-dev python3-opengl
                 dtcc-download-demo-data
                 #python demos/CI/comment_out.py
+                cd venv/lib/python3.10/site-packages
+                ls -altR
                 for script in demos/*.py; do
                   if [ "$(basename "$script")" != "view_pointcloud.py" ]; then
                    python "$script"
@@ -44,6 +48,7 @@ jobs:
                 brew install glfw3
                 dtcc-download-demo-data
                 #python demos/CI/comment_out.py
+                cd 
                 for script in demos/*.py; do
                 if [ "$(basename "$script")" != "view_pointcloud.py" ]; then
                    python "$script"
