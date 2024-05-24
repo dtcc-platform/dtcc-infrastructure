@@ -45,9 +45,10 @@ jobs:
                 python -m venv venv
                 source venv/bin/activate  # Linux/macOS
                 pip install dtcc
-                pip install pyassimp PyOpenGL PyOpenGL_accelerate
+                #pip install pyassimp PyOpenGL PyOpenGL_accelerate
                 cd venv/lib/python3.10/site-packages
                 ls -altR
+                
                 #sudo apt-get install libassimp-dev python3-opengl #this won't work on MacOS
                 brew install glfw3
                 dtcc-download-demo-data
